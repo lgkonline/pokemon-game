@@ -9,6 +9,11 @@ for (let i = 0; i < collisions.length; i += 70) {
     collisionsMap.push(collisions.slice(i, 70 + i))
 }
 
+const battleZonesMap = []
+for (let i = 0; i < battleZonesData.length; i += 70) {
+    battleZonesMap.push(battleZonesData.slice(i, 70 + i))
+}
+
 const boundaries = []
 const offset = {
     x: -735,
@@ -30,6 +35,23 @@ collisionsMap.forEach((row, i) => {
     })
 })
 
+const battleZones = []
+
+battleZonesMap.forEach((row, i) => {
+    row.forEach((symbol, j) => {
+        if (symbol === 1025) {
+            battleZones.push(
+                new Boundary({
+                    position: {
+                        x: j * Boundary.width + offset.x,
+                        y: i * Boundary.height + offset.y
+                    }
+                })
+            )
+        }
+    })
+})
+
 const image = new Image()
 image.src = "./img/Pellet Town.png"
 
@@ -37,16 +59,16 @@ const foregroundImage = new Image()
 foregroundImage.src = "./img/foregroundObjects.png"
 
 const playerDownImage = new Image()
-playerDownImage.src = "./img/playerDown.png"
+playerDownImage.src = "./img/Own character down.png"
 
 const playerUpImage = new Image()
-playerUpImage.src = "./img/playerUp.png"
+playerUpImage.src = "./img/Own character up.png"
 
 const playerLeftImage = new Image()
-playerLeftImage.src = "./img/playerLeft.png"
+playerLeftImage.src = "./img/Own character left.png"
 
 const playerRightImage = new Image()
-playerRightImage.src = "./img/playerRight.png"
+playerRightImage.src = "./img/Own character right.png"
 
 const player = new Sprite({
     position: {
@@ -80,7 +102,7 @@ const keys = {
     d: { pressed: false }
 }
 
-const movables = [background, ...boundaries, foreground]
+const movables = [background, ...boundaries, foreground, ...battleZones]
 
 function rectangularCollision({ reactangle1, reactangle2 }) {
     return (
@@ -95,8 +117,37 @@ function animate() {
     window.requestAnimationFrame(animate)
     background.draw()
     boundaries.forEach((boundary) => boundary.draw())
+    battleZones.forEach((battleZone) => battleZone.draw())
     player.draw()
     foreground.draw()
+
+    if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
+        for (let i = 0; i < battleZones.length; i++) {
+            const battleZone = battleZones[i]
+            const overlappingArea =
+                (Math.min(
+                    player.position.x + player.width,
+                    battleZone.position.x + battleZone.width
+                ) -
+                    Math.max(player.position.x, battleZone.position.x)) *
+                (Math.min(
+                    player.position.y + player.height,
+                    battleZone.position.y + battleZone.height
+                ) -
+                    Math.max(player.position.y, battleZone.position.y))
+
+            if (
+                rectangularCollision({
+                    reactangle1: player,
+                    reactangle2: battleZone
+                }) &&
+                overlappingArea > (player.width * player.height) / 2
+            ) {
+                console.log("battle zone coll")
+                break
+            }
+        }
+    }
 
     let moving = true
     player.moving = false
@@ -122,6 +173,7 @@ function animate() {
                 break
             }
         }
+
         if (moving) {
             movables.forEach((movable) => (movable.position.y += 3))
         }

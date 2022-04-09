@@ -113,14 +113,24 @@ function rectangularCollision({ reactangle1, reactangle2 }) {
     )
 }
 
+const battle = {
+    initiated: false
+}
+
 function animate() {
-    window.requestAnimationFrame(animate)
+    const animationId = window.requestAnimationFrame(animate)
     background.draw()
     boundaries.forEach((boundary) => boundary.draw())
     battleZones.forEach((battleZone) => battleZone.draw())
     player.draw()
     foreground.draw()
 
+    let moving = true
+    player.moving = false
+
+    if (battle.initiated) return
+
+    // activate a battle
     if (keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
         for (let i = 0; i < battleZones.length; i++) {
             const battleZone = battleZones[i]
@@ -141,16 +151,34 @@ function animate() {
                     reactangle1: player,
                     reactangle2: battleZone
                 }) &&
-                overlappingArea > (player.width * player.height) / 2
+                overlappingArea > (player.width * player.height) / 2 &&
+                Math.random() < 0.01
             ) {
-                console.log("battle zone coll")
+                // deactivate current animation loop
+                window.cancelAnimationFrame(animationId)
+
+                battle.initiated = true
+                gsap.to("#overlappingDiv", {
+                    opacity: 1,
+                    repeat: 3,
+                    yoyo: true,
+                    duration: 0.4,
+                    onComplete: () => {
+                        gsap.to("#overlappingDiv", {
+                            opacity: 1,
+                            duration: 0.4
+                        })
+
+                        // activate a new animation loop
+                        animateBattle()
+                    }
+                })
+
                 break
             }
         }
     }
 
-    let moving = true
-    player.moving = false
     if (keys.w.pressed && lastKey === "w") {
         player.moving = true
         player.image = player.sprites.up
@@ -255,6 +283,10 @@ function animate() {
     }
 }
 animate()
+
+function animateBattle() {
+    window.requestAnimationFrame(animateBattle)
+}
 
 let lastKey = ""
 

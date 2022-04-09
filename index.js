@@ -59,16 +59,16 @@ const foregroundImage = new Image()
 foregroundImage.src = "./img/foregroundObjects.png"
 
 const playerDownImage = new Image()
-playerDownImage.src = "./img/Own character down.png"
+playerDownImage.src = "./img/Benas down.png"
 
 const playerUpImage = new Image()
-playerUpImage.src = "./img/Own character up.png"
+playerUpImage.src = "./img/Benas up.png"
 
 const playerLeftImage = new Image()
-playerLeftImage.src = "./img/Own character left.png"
+playerLeftImage.src = "./img/Benas left.png"
 
 const playerRightImage = new Image()
-playerRightImage.src = "./img/Own character right.png"
+playerRightImage.src = "./img/Benas right.png"
 
 const player = new Sprite({
     position: {

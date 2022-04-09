@@ -1,8 +1,35 @@
-<style type="text/css">
-    body {
-        background-color: black;
-    }
-</style>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Press+Start+2P&display=swap"
+        rel="stylesheet"
+    />
+
+    <style type="text/css">
+        * {
+            font-family: "Press Start 2P", cursive;
+        }
+
+        body {
+            background-color: black;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        button {
+            border: 0;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
 
 <div style="display: inline-block; position: relative">
     <div
@@ -19,6 +46,43 @@
         "
     ></div>
     <canvas></canvas>
+
+    <div
+        style="
+            background-color: white;
+            height: 140px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-top: 4px solid black;
+            display: flex;
+        "
+    >
+        <div
+            style="
+                width: 66.66%;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            "
+        >
+            <button>Attack 1</button>
+            <button>Attack 2</button>
+            <button>Attack 3</button>
+            <button>Attack 4</button>
+        </div>
+        <div
+            style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 33.33%;
+                border-left: 4px solid black;
+            "
+        >
+            <h1 style="font-size: 1rem">Attack Type</h1>
+        </div>
+    </div>
 </div>
 
 <p style="color: white">

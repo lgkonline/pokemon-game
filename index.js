@@ -335,33 +335,41 @@ window.addEventListener("keyup", (e) => {
     }
 })
 
-document.getElementById("pressUp").addEventListener("mousedown", () => {
+document.getElementById("pressUp").addEventListener("touchstart", (e) => {
+    e.preventDefault()
     keys.w.pressed = true
     lastKey = "w"
 })
-document.getElementById("pressLeft").addEventListener("mousedown", () => {
+document.getElementById("pressLeft").addEventListener("touchstart", (e) => {
+    e.preventDefault()
     keys.a.pressed = true
     lastKey = "a"
 })
-document.getElementById("pressDown").addEventListener("mousedown", () => {
+document.getElementById("pressDown").addEventListener("touchstart", (e) => {
+    e.preventDefault()
     keys.s.pressed = true
     lastKey = "s"
 })
-document.getElementById("pressRight").addEventListener("mousedown", () => {
+document.getElementById("pressRight").addEventListener("touchstart", (e) => {
+    e.preventDefault()
     keys.d.pressed = true
     lastKey = "d"
 })
 
-document.getElementById("pressUp").addEventListener("mouseup", () => {
+document.getElementById("pressUp").addEventListener("touchend", (e) => {
+    e.preventDefault()
     keys.w.pressed = false
 })
-document.getElementById("pressLeft").addEventListener("mouseup", () => {
+document.getElementById("pressLeft").addEventListener("touchend", (e) => {
+    e.preventDefault()
     keys.a.pressed = false
 })
-document.getElementById("pressDown").addEventListener("mouseup", () => {
+document.getElementById("pressDown").addEventListener("touchend", (e) => {
+    e.preventDefault()
     keys.s.pressed = false
 })
-document.getElementById("pressRight").addEventListener("mouseup", () => {
+document.getElementById("pressRight").addEventListener("touchend", (e) => {
+    e.preventDefault()
     keys.d.pressed = false
 })
 

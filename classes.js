@@ -96,6 +96,9 @@ class Monster extends Sprite {
         gsap.to(this, {
             opacity: 0
         })
+
+        audio.battle.stop()
+        audio.victory.play()
     }
 
     attack({ attack, recipient, renderedSprites }) {
@@ -124,11 +127,16 @@ class Monster extends Sprite {
                 })
                 renderedSprites.splice(1, 0, fireball)
 
+                audio.initFireball.play()
+
                 gsap.to(fireball.position, {
                     x: recipient.position.x,
                     y: recipient.position.y,
                     onComplete: () => {
                         // Enemy get hit
+
+                        audio.fireballHit.play()
+
                         gsap.to(healthBar, {
                             width: recipient.health + "%"
                         })
@@ -164,11 +172,16 @@ class Monster extends Sprite {
                 })
                 renderedSprites.splice(1, 0, bigEnergyBall)
 
+                audio.initFireball.play()
+
                 gsap.to(bigEnergyBall.position, {
                     x: recipient.position.x,
                     y: recipient.position.y,
                     onComplete: () => {
                         // Enemy get hit
+
+                        audio.tackleHit.play()
+
                         gsap.to(healthBar, {
                             width: recipient.health + "%"
                         })
@@ -206,6 +219,9 @@ class Monster extends Sprite {
                         duration: 0.1,
                         onComplete: () => {
                             // Enemy get hit
+
+                            audio.tackleHit.play()
+
                             gsap.to(healthBar, {
                                 width: recipient.health + "%"
                             })

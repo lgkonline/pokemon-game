@@ -13,6 +13,7 @@
 
         body {
             background-color: black;
+            margin: 0;
         }
 
         h1 {
@@ -27,6 +28,11 @@
 
         button:hover {
             background-color: #ddd;
+        }
+
+        .arrow-button {
+            width: 48px;
+            height: 48px;
         }
     </style>
 </head>
@@ -157,7 +163,31 @@
             </div>
         </div>
     </div>
+
+    <div
+        id="arrowButtons"
+        style="
+            position: absolute;
+            z-index: 11;
+            bottom: 1rem;
+            left: 1rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        "
+    >
+        <div></div>
+        <button class="arrow-button" id="pressUp">⬆️</button>
+        <div></div>
+        <button class="arrow-button" id="pressLeft">⬅️</button>
+        <div></div>
+        <button class="arrow-button" id="pressRight">➡️</button>
+        <div></div>
+        <button class="arrow-button" id="pressDown">⬇️</button>
+        <div></div>
+    </div>
 </div>
+
+<p style="color: white">Click or tap to start audio.</p>
 
 <p style="color: white">
     Created following this amazing tutorial:

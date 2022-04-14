@@ -12,7 +12,29 @@ let queue
 
 let battleAnimationId
 
+function finishBattle() {
+    queue.push(() => {
+        // Fade back to black
+        gsap.to("#overlappingDiv", {
+            opacity: 1,
+            onComplete: () => {
+                cancelAnimationFrame(battleAnimationId)
+                animate()
+                document.getElementById("userInterface").style.display = "none"
+                gsap.to("#overlappingDiv", {
+                    opacity: 0
+                })
+
+                battle.initiated = false
+                audio.map.play()
+                document.getElementById("arrowButtons").style.display = "grid"
+            }
+        })
+    })
+}
+
 function initBattle() {
+    document.getElementById("arrowButtons").style.display = "none"
     document.getElementById("userInterface").style.display = ""
     document.getElementById("dialogueBox").style.display = "none"
     document.getElementById("enemyHealthBar").style.width = ""
@@ -45,25 +67,7 @@ function initBattle() {
                     draggle.faint()
                 })
 
-                queue.push(() => {
-                    // Fade back to black
-                    gsap.to("#overlappingDiv", {
-                        opacity: 1,
-                        onComplete: () => {
-                            cancelAnimationFrame(battleAnimationId)
-                            animate()
-                            document.getElementById(
-                                "userInterface"
-                            ).style.display = "none"
-                            gsap.to("#overlappingDiv", {
-                                opacity: 0
-                            })
-
-                            battle.initiated = false
-                        }
-                    })
-                })
-
+                finishBattle()
                 return
             }
 
@@ -85,25 +89,7 @@ function initBattle() {
                         emby.faint()
                     })
 
-                    queue.push(() => {
-                        // Fade back to black
-                        gsap.to("#overlappingDiv", {
-                            opacity: 1,
-                            onComplete: () => {
-                                cancelAnimationFrame(battleAnimationId)
-                                animate()
-                                document.getElementById(
-                                    "userInterface"
-                                ).style.display = "none"
-                                gsap.to("#overlappingDiv", {
-                                    opacity: 0
-                                })
-
-                                battle.initiated = false
-                            }
-                        })
-                    })
-
+                    finishBattle()
                     return
                 }
             })

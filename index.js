@@ -335,6 +335,36 @@ window.addEventListener("keyup", (e) => {
     }
 })
 
+document.getElementById("pressUp").addEventListener("mousedown", () => {
+    keys.w.pressed = true
+    lastKey = "w"
+})
+document.getElementById("pressLeft").addEventListener("mousedown", () => {
+    keys.a.pressed = true
+    lastKey = "a"
+})
+document.getElementById("pressDown").addEventListener("mousedown", () => {
+    keys.s.pressed = true
+    lastKey = "s"
+})
+document.getElementById("pressRight").addEventListener("mousedown", () => {
+    keys.d.pressed = true
+    lastKey = "d"
+})
+
+document.getElementById("pressUp").addEventListener("mouseup", () => {
+    keys.w.pressed = false
+})
+document.getElementById("pressLeft").addEventListener("mouseup", () => {
+    keys.a.pressed = false
+})
+document.getElementById("pressDown").addEventListener("mouseup", () => {
+    keys.s.pressed = false
+})
+document.getElementById("pressRight").addEventListener("mouseup", () => {
+    keys.d.pressed = false
+})
+
 let clicked = false
 addEventListener("click", () => {
     if (!clicked) {

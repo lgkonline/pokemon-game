@@ -17,7 +17,7 @@ for (let i = 0; i < battleZonesData.length; i += 70) {
 const boundaries = []
 const offset = {
     x: -735,
-    y: -650
+    y: -750
 }
 
 collisionsMap.forEach((row, i) => {
@@ -53,7 +53,8 @@ battleZonesMap.forEach((row, i) => {
 })
 
 const image = new Image()
-image.src = "./img/Pellet Town.png"
+// image.src = "./img/Pellet Town.png"
+image.src = "./img/Pokemon Style Game Map.png"
 
 const foregroundImage = new Image()
 foregroundImage.src = "./img/foregroundObjects.png"
